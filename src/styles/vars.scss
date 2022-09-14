@@ -1,0 +1,9 @@
+:root {
+    --foreground-colour: 0, 0, 0;
+    --foreground-disabled-text-opacity: 0.7;
+    --foreground-active-colour: 255, 121, 0, 1;
+    --foreground-error-colour: 255, 0, 0;
+    --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-duration: 150ms;
+    --font-small: 0.75rem;
+}

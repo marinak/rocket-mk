@@ -1,0 +1,42 @@
+.tooltip {
+    background-color: rgb(var(--foreground-colour));
+    color: #fff;
+    font-size: var(--font-small);
+    padding: 0.5em;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    position: relative;
+    margin-top: 0.6em;
+
+    &::before {
+        content: "";
+        width: 0;
+        height: 0;
+        border-top: 15px solid transparent;
+        border-right: 12px solid transparent;
+        border-bottom: 15px solid rgb(var(--foreground-colour));
+        border-left: 12px solid transparent;
+        position: absolute;
+        top: -27px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+}
+
+.tooltip--active {
+    background-color: rgb(var(--foreground-active-colour));
+
+    &::before {
+        border-bottom-color: rgb(var(--foreground-active-colour));
+    }
+}
+
+.tooltip--error {
+    background-color: rgb(var(--foreground-error-colour));
+
+    &::before {
+        border-bottom-color: rgb(var(--foreground-error-colour));
+    }
+}

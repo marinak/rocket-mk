@@ -1,0 +1,35 @@
+@mixin transition-style {
+    transition-timing-function: var(--transition-timing-function);
+    transition-duration: var(--transition-duration);
+}
+
+.transition-colours {
+    transition-property: background-color, border-color, color, fill, stroke;
+    @include transition-style;
+}
+
+.transition-opacity {
+    transition-property: opacity;
+    @include transition-style;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.min-w-11 {
+    min-width: 11em;
+}
+
+.grid {
+    display: inline-grid;
+    gap: 0.5em;
+}
+
+.grid--double {
+    grid-template-columns: repeat(2, auto);
+}
+
+.leading-none {
+    line-height: 1;
+}
