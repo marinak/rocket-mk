@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import useApi from '../../../hooks/useApi'
 import { Button, Tooltip } from '../.'
 import Status from '../../../constants/Status'
@@ -8,68 +8,35 @@ import './ButtonAPI.scss'
 const ButtonAPI = ({ apiUrl, maxDuration, buttonText, tooltipText }) => {
     const [tooltip, setTooltip] = useState(false);
     const [status, setStatus] = useState(Status.Default);
-    const [nextStatus, setNextStatus] = useState(Status.Default);
-    const timeoutRef = useRef()
 
     const onHoverChange = (isOn) => {
         setTooltip(isOn);
     };
 
-    const getLaunchApi = useApi(apiUrl);
+    const getLaunchApi = useApi(apiUrl, maxDuration);
 
     useEffect(() => {
-        !getLaunchApi.loading && clearTimeout(timeoutRef.current);
+        const nextStatus = getLaunchApi.error && getLaunchApi.error !== 'canceled'
+            ? Status.Error
+            : getLaunchApi.loading
+                ? Status.Active
+                : Status.Default;
 
-        const status = (getLaunchApi.loading || nextStatus === Status.Error)
-            ? nextStatus
-            : Status.Default
-
-        setStatus(status);
-    }, [nextStatus, getLaunchApi]);
-
-
-    //TODO handle API error (not timeout)
+        setStatus(nextStatus);
+    }, [getLaunchApi]);
 
     const onClick = () => {
-        clearTimeout(timeoutRef.current);
         switch (status) {
             case Status.Default:
                 getLaunchApi.request();
-                setNextStatus(Status.Active)
-                timeoutRef.current = setTimeout(() => {
-                    getLaunchApi.controller.abort();
-                    setNextStatus(Status.Error)
-                }, maxDuration * 1000)
                 break;
             case Status.Active:
-                getLaunchApi.controller.abort();
-                setNextStatus(Status.Default);
+                getLaunchApi.abort();
                 break;
         }
     };
 
-    const getButtonText = () => {
-        switch (status) {
-            case Status.Active:
-                return buttonText.active
-            case Status.Error:
-                return buttonText.error;
-            default:
-                return buttonText.default;
-        }
-    }
-
-    const getTooltipText = () => {
-        switch (status) {
-            case Status.Active:
-                return tooltipText.active;
-            case Status.Error:
-                return tooltipText.error;
-            default:
-                return tooltipText.default;
-        }
-    }
-
+    //TODO turn to object
     const getButtonClass = () => {
         switch (status) {
             case Status.Disabled:
@@ -83,6 +50,7 @@ const ButtonAPI = ({ apiUrl, maxDuration, buttonText, tooltipText }) => {
         }
     }
 
+    //TODO turn to object
     const getTooltipClass = () => {
         switch (status) {
             case Status.Active:
@@ -96,21 +64,21 @@ const ButtonAPI = ({ apiUrl, maxDuration, buttonText, tooltipText }) => {
 
     return (
         <>
-            <p style={{ 'marginBottom': '20px' }}>{status} - {apiUrl}</p>
             <div className='btn-container'>
                 <div onMouseEnter={() => status !== Status.Disabled && onHoverChange(true)} onMouseLeave={() => onHoverChange(false)}>
                     <Button
                         className={`min-w-11 ${getButtonClass()}`}
                         onClick={onClick}
-                        text={getButtonText()}
+                        text={buttonText[status]}
                         iconRight={status == Status.Active && <Loader />} />
                 </div>
                 {(tooltip || status == Status.Error) && (
                     <Tooltip
                         className={getTooltipClass()}
-                        text={getTooltipText()} />
+                        text={tooltipText[status]} />
                 )}
             </div>
+            <p data-info='testing only' style={{ 'position': 'absolute', 'bottom': 0 }}>{apiUrl}</p>
         </>
     )
 }
