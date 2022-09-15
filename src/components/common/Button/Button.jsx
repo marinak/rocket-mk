@@ -4,7 +4,7 @@ import './Button.scss'
 
 const Button = ({ onClick, type, className, text, iconRight }) => {
     return (
-        <button onClick={onClick} onKeyDown={onClick} type={type} className={cn('btn', className)} role="">
+        <button onClick={onClick} onKeyDown={onClick} type={type} className={cn('btn transition-colours', className)} role="">
             <span className='grid grid--double'>
                 <span>
                     {text}
@@ -18,7 +18,7 @@ const Button = ({ onClick, type, className, text, iconRight }) => {
 }
 
 Button.defaultProps = {
-    type: 'submit',
+    type: 'button',
     text: 'Submit',
 };
 

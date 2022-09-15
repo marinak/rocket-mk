@@ -1,8 +1,8 @@
 const Status = {
-    Ready: 'ready',
+    Disabled: 'disabled',
+    Default: 'default',
     Active: 'active',
-    Error: 'error',
-    Complete: 'complete'
+    Error: 'error'
 };
 
 export default Status

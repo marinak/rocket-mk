@@ -5,12 +5,20 @@
 
 .transition-colours {
     transition-property: background-color, border-color, color, fill, stroke;
-    @include transition-style;
+    /*@include transition-style;*/
+    transition-timing-function: var(--transition-timing-function);
+    transition-duration: var(--transition-duration);
 }
 
 .transition-opacity {
     transition-property: opacity;
-    @include transition-style;
+    /*@include transition-style;*/
+    transition-timing-function: var(--transition-timing-function);
+    transition-duration: var(--transition-duration);
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 .text-center {

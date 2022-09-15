@@ -12,10 +12,28 @@ export default {
     },
 };
 
-const Template = (args) => <Button {...args} />;
+const Story = (args) => <Button {...args} />;
 
-export const Primary = Template.bind({});
+export const Default = Story.bind({});
+Default.args = {
+    text: 'Button'
+};
 
-Primary.args = {
-    text: 'Working...',
+export const Disabled = Story.bind({});
+Disabled.args = {
+    text: 'Disabled',
+    className: 'btn--disabled',
+    disabled: true
+};
+
+export const Active = Story.bind({});
+Active.args = {
+    text: 'Active',
+    className: 'btn--active'
+};
+
+export const Error = Story.bind({});
+Error.args = {
+    text: 'Error',
+    className: 'btn--error'
 };

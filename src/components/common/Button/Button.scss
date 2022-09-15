@@ -4,22 +4,24 @@
     border: 2px solid rgb(var(--foreground-colour));
     color: rgb(var(--foreground-colour));
     font-size: var(--font-small);
-    padding: 0.35em;
+    padding: 0.35em 1.5em;
     appearance: none;
     cursor: pointer;
     line-height: 2.3;
-}
 
-.btn:disabled {
-    color: rgba(var(--foreground-text-color), var(--foreground-disabled-text-opacity));
-}
+    &--disabled,
+    &:disabled {
+        color: rgba(var(--foreground-colour), var(--foreground-disabled-text-opacity));
+        cursor: default;
+    }
 
-.btn--active {
-    color: rgb(var(--foreground-active-colour));
-    border-color: rgb(var(--foreground-active-colour));
-}
+    &--active {
+        color: rgb(var(--foreground-active-colour));
+        border-color: rgb(var(--foreground-active-colour));
+    }
 
-.btn--error {
-    color: rgb(var(--foreground-error-colour));
-    border-color: rgb(var(--foreground-error-colour));
+    &--error {
+        color: rgb(var(--foreground-error-colour));
+        border-color: rgb(var(--foreground-error-colour));
+    }
 }

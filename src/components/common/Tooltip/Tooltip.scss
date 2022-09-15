@@ -2,7 +2,7 @@
     background-color: rgb(var(--foreground-colour));
     color: #fff;
     font-size: var(--font-small);
-    padding: 0.5em;
+    padding: 0.5em 1.5em;
     text-align: center;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -23,20 +23,20 @@
         transform: translateX(-50%);
         pointer-events: none;
     }
-}
 
-.tooltip--active {
-    background-color: rgb(var(--foreground-active-colour));
+    &--active {
+        background-color: rgb(var(--foreground-active-colour));
 
-    &::before {
-        border-bottom-color: rgb(var(--foreground-active-colour));
+        &::before {
+            border-bottom-color: rgb(var(--foreground-active-colour));
+        }
     }
-}
 
-.tooltip--error {
-    background-color: rgb(var(--foreground-error-colour));
+    &--error {
+        background-color: rgb(var(--foreground-error-colour));
 
-    &::before {
-        border-bottom-color: rgb(var(--foreground-error-colour));
+        &::before {
+            border-bottom-color: rgb(var(--foreground-error-colour));
+        }
     }
 }
