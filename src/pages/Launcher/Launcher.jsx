@@ -26,7 +26,6 @@ const Launcher = () => {
                     tooltipText={launcherTooltipText}
                     apiUrl={launcherApiUrl}
                     maxDuration={5}
-                //defaultStatus={Status.Error}
                 />
             </div>
         </div>

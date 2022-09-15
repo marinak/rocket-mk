@@ -1,4 +1,4 @@
-import './index.css'
+import './styles/index.scss'
 import { Launcher } from './pages'
 
 function App() {

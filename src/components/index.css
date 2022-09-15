@@ -1,0 +1,106 @@
+:root {
+  --foreground-colour: 0, 0, 0;
+  --foreground-disabled-text-opacity: 0.7;
+  --foreground-active-colour: 255, 121, 0, 1;
+  --foreground-error-colour: 255, 0, 0;
+  --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-duration: 150ms;
+  --font-small: 0.75rem;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  font-family: Roboto, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1.5;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: inherit;
+  line-height: inherit;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+.transition-colours {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: var(--transition-timing-function);
+  transition-duration: var(--transition-duration);
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--transition-timing-function);
+  transition-duration: var(--transition-duration);
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.min-w-11 {
+  min-width: 11em;
+}
+
+.grid {
+  display: inline-grid;
+  gap: 0.5em;
+}
+.grid--double {
+  grid-template-columns: repeat(2, auto);
+}
+
+.leading-none {
+  line-height: 1;
+}
+
+body {
+  background: #ededed;
+  background-image: linear-gradient(#ededed, #dedede);
+}
+
+.launcher-pad {
+  margin: 10em auto;
+}

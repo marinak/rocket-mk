@@ -1,32 +1,28 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
 
 export default (url) => {
     const [data, setData] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const controllerRef = useRef(new AbortController());
-    const cancel = () => {
-        controllerRef.current.abort();
+    const [controller, setController] = useState(new AbortController());
+
+    const request = async () => {
+        setLoading(true);
+        setError('');
+        try {
+            const response = await axios.request({
+                signal: controller.signal,
+                url
+            });
+            setData(response.data);
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+            setController(new AbortController());
+        }
     };
 
-    useEffect(() => {
-        (async () => {
-            setLoading(true);
-            try {
-                const response = await axios.request({
-                    data: payload,
-                    signal: controllerRef.current.signal,
-                    method,
-                    url,
-                });
-                setData(response.data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        })();
-    }, []);
-
-    return { cancel, data, error, loading };
+    return { request, data, error, loading, controller };
 }

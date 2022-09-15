@@ -5,16 +5,12 @@
 
 .transition-colours {
     transition-property: background-color, border-color, color, fill, stroke;
-    /*@include transition-style;*/
-    transition-timing-function: var(--transition-timing-function);
-    transition-duration: var(--transition-duration);
+    @include transition-style;
 }
 
 .transition-opacity {
     transition-property: opacity;
-    /*@include transition-style;*/
-    transition-timing-function: var(--transition-timing-function);
-    transition-duration: var(--transition-duration);
+    @include transition-style;
 }
 
 .inline-block {
@@ -32,10 +28,10 @@
 .grid {
     display: inline-grid;
     gap: 0.5em;
-}
 
-.grid--double {
-    grid-template-columns: repeat(2, auto);
+    &--double {
+        grid-template-columns: repeat(2, auto);
+    }
 }
 
 .leading-none {

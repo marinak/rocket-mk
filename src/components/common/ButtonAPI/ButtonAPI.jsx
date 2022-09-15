@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import useApi from '../../../hooks/useApi'
 import { Button, Tooltip } from '../.'
 import Status from '../../../constants/Status'
 import { ReactComponent as Loader } from '../../../assets/common/loader.svg'
 import './ButtonAPI.scss'
 
-const ButtonAPI = ({ apiUrl, maxDuration, buttonText, tooltipText, defaultStatus }) => {
+const ButtonAPI = ({ apiUrl, maxDuration, buttonText, tooltipText }) => {
     const [tooltip, setTooltip] = useState(false);
     const [status, setStatus] = useState(Status.Default);
-
-    useEffect(() => {
-        defaultStatus && setStatus(defaultStatus);
-    });
+    const [nextStatus, setNextStatus] = useState(Status.Default);
+    const timeoutRef = useRef()
 
     const onHoverChange = (isOn) => {
         setTooltip(isOn);
@@ -19,28 +17,33 @@ const ButtonAPI = ({ apiUrl, maxDuration, buttonText, tooltipText, defaultStatus
 
     const getLaunchApi = useApi(apiUrl);
 
-    // api error set status to error
-    // api complete set status to default
-    // api timeout cancel and return set to error //maxDuration
+    useEffect(() => {
+        !getLaunchApi.loading && clearTimeout(timeoutRef.current);
 
-    /*     useEffect(() => {
-            //debugger; WHY IS THIS RUNNING ON LOAD???
-            if (getLaunchApi.loading) {
-                setStatus(Status.Active);
-            } else if (getLaunchApi.error) {
-                setStatus(Status.Error);
-            } else if (getLaunchApi.data) {
-                setStatus(Status.Default);
-            }
-        }, [getLaunchApi]) */
+        const status = (getLaunchApi.loading || nextStatus === Status.Error)
+            ? nextStatus
+            : Status.Default
+
+        setStatus(status);
+    }, [nextStatus, getLaunchApi]);
+
+
+    //TODO handle API error (not timeout)
 
     const onClick = () => {
+        clearTimeout(timeoutRef.current);
         switch (status) {
             case Status.Default:
-                //getLaunchApi.request();
+                getLaunchApi.request();
+                setNextStatus(Status.Active)
+                timeoutRef.current = setTimeout(() => {
+                    getLaunchApi.controller.abort();
+                    setNextStatus(Status.Error)
+                }, maxDuration * 1000)
                 break;
             case Status.Active:
-                //getLaunchApi.cancel();
+                getLaunchApi.controller.abort();
+                setNextStatus(Status.Default);
                 break;
         }
     };
