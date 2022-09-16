@@ -4,7 +4,7 @@ import './Button.scss'
 
 const Button = ({ onClick, type, className, text, iconRight }) => {
     return (
-        <button onClick={onClick} onKeyDown={onClick} type={type} className={cn('btn transition-colours', className)} role="">
+        <button onClick={onClick} onKeyDown={onClick} type={type} className={cn('btn transition-colours', className)}>
             <span className='grid grid--double'>
                 <span>
                     {text}
